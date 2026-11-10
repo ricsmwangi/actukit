@@ -1,0 +1,44 @@
+# ── Build artifacts ──────────────────────────────────────
+*.o
+*.so
+*.a
+*.out
+src/actukit
+src/actukit-sum
+src/actukit-mack
+bin/
+build/
+
+# ── Python ───────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ── Data & databases ─────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+data/*.csv
+!data/sample_*.csv
+!data/.gitkeep
+
+# generated plots
+*.png
+!docs/img/*.png
+
+# ── Editor / IDE ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ── OS ───────────────────────────────────────────────────
+Thumbs.db
