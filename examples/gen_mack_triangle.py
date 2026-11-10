@@ -1,4 +1,5 @@
 """Regenerate the classic Mack (1993) reference triangle."""
+
 from pathlib import Path
 
 ROWS = [
@@ -14,6 +15,7 @@ ROWS = [
     [344014],
 ]
 
+
 def main():
     out = Path(__file__).parent / "mack_triangle.csv"
     with out.open("w") as f:
@@ -22,6 +24,7 @@ def main():
             for j, v in enumerate(row):
                 f.write(f"{i},{j},{v}\n")
     print(f"wrote {out}")
+
 
 if __name__ == "__main__":
     main()

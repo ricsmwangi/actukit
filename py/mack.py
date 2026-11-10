@@ -3,6 +3,7 @@
 Usage:
     python py/mack.py examples/mack_triangle.csv
 """
+
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -11,14 +12,17 @@ import sys
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
-BIN  = ROOT / "src" / "actukit-mack"
-DB   = ROOT / "actukit.db"
+BIN = ROOT / "src" / "actukit-mack"
+DB = ROOT / "actukit.db"
 
 
 def load_triangle(csv_path: str) -> pd.DataFrame:
     """Read CSV, load into SQLite using the managed schema."""
-    df = (pd.read_csv(csv_path).rename(columns=str.lower)
-            .rename(columns={"origin": "origin_year", "dev": "dev_year"}))
+    df = (
+        pd.read_csv(csv_path)
+        .rename(columns=str.lower)
+        .rename(columns={"origin": "origin_year", "dev": "dev_year"})
+    )
     with sqlite3.connect(DB) as conn:
         conn.executescript((ROOT / "sql" / "schema.sql").read_text())
         conn.execute("DELETE FROM claims_triangle")
@@ -41,7 +45,7 @@ def plot_factors(csv_path: str, out_png: str = "dev_factors.png") -> str:
         line = line.strip()
         if line.startswith("f[") and "=" in line:
             left, right = line.split("=", 1)
-            j = int(left.strip()[2:left.index("]")])
+            j = int(left.strip()[2 : left.index("]")])
             f = float(right.strip().split()[0])
             js.append(j)
             fs.append(f)
