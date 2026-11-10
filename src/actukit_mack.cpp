@@ -56,12 +56,13 @@ MackResult mack(const Triangle& T) {
         }
         R.sigma2[j] = (cnt > 0) ? s / cnt : 0.0;
     }
-    // Mack 1993: sigma^2[n-2] = min( (sigma^2[n-4])^2 / sigma^2[n-3], sigma^2[n-4], sigma^2[n-3] )
+    // Mack 1993 sec 4.3 (matches R ChainLadder):
+    //   sigma^2[n-2] = min( sigma^2[n-3]^2 / sigma^2[n-4], sigma^2[n-3], sigma^2[n-4] )
     if (n >= 3) {
         double s_prev2 = (n >= 4) ? R.sigma2[n - 4] : 0.0;
         double s_prev1 = R.sigma2[n - 3];
-        R.sigma2[n - 2] = (s_prev1 > 1e-12)
-            ? std::min({ s_prev2 * s_prev2 / s_prev1, s_prev2, s_prev1 })
+        R.sigma2[n - 2] = (s_prev2 > 1e-12)
+            ? std::min({ s_prev1 * s_prev1 / s_prev2, s_prev2, s_prev1 })
             : s_prev1;
     }
 
